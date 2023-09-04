@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Head Tail Game</title>
+
+	<style type="text/css">
+
+body{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 95vh;
+
+}		
+button{
+	background: cyan;
+	border-radius: 30px;
+	padding: 5px 10px;
+	border: none;
+	width: 100px;
+	margin-top:20px;
+	align-content: center;
+	text-align: center;
+		font-size:16px;
+	}
+
+.btn{
+
+	height: 400px;
+	width: 400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	box-shadow: 5px 5px 10px black;
+}
+
+.js-result, .js-result2, .js-result3{
+	color: black;
+	font-size: 14px;
+	line-height: 12px;
+
+}
+
+.js-result{
+	color: green;
+	font-size: 18px;
+	font-weight: bold;
+}
+.js-result-container{
+	text-align: center;
+	width: 95%;
+	height: 100px;
+	background-color: lightgrey;
+	border-radius: 30px;
+	margin: 20px 5px;
+
+}
+</style>
+
+
+</head>
+
+<body>
+
+
+<div class="btn">
+	<button onclick="
+	pickComputerMove('Head')
+	"> Head </button>
+
+<button onclick="
+	pickComputerMove('Tail')
+"> Tail </button>
+
+<div class="js-result-container">
+	<p class="js-result"></p>
+	<p class="js-result2"></p>
+	<p class="js-result3"></p>
+</div>
+
+
+<button onclick="
+	
+
+		score.win = 0;
+		score.losses =0;
+		localStorage.removeItem('score');
+resultElement3.innerHTML=`losses:${score.losses}, win:${score.win}`
+">Reset</button>
+
+</div>
+
+
+
+<script type="text/javascript">
+
+		let resultElement = document.querySelector('.js-result');
+		let resultElement2 = document.querySelector('.js-result2');
+		let resultElement3 = document.querySelector('.js-result3');
+
+
+		let score=JSON.parse(localStorage.getItem('score')) ||{
+				win:0,
+				losses : 0
+			};
+		
+
+	function pickComputerMove(yourMove){
+		
+	let computerMove = '';
+		randomNumber = Math.random();
+	(randomNumber <= 1/2 ) ? computerMove='Head' : computerMove = 'Tail';
+	
+	//------------Result Tracker--------------------------
+
+	if (yourMove===computerMove) {
+		score.win +=1;
+	} else{
+		score.losses +=1;
+	}
+resultElement2.innerHTML=`computer picked: ${computerMove}   - You picked: ${yourMove},`
+resultElement3.innerHTML=`losses:${score.losses}, win:${score.win}`
+
+	localStorage.setItem('score', JSON.stringify(score));
+
+	if(yourMove===computerMove){
+		resultElement.innerHTML =`You win`
+		resultElement2.innerHTML=`computer picked: ${computerMove}   - You picked: ${yourMove},` 
+		resultElement3.innerHTML=`losses:${score.losses}, win:${score.win}` 
+	}
+	else{
+		resultElement.innerHTML =`You loose`
+		resultElement2.innerHTML=`computer picked: ${computerMove}   - You picked: ${yourMove},` 
+		resultElement3.innerHTML=`losses:${score.losses}, win:${score.win}` 
+	};
+
+
+
+	}
+
+</script>
+
+</body>
+</html>
